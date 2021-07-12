@@ -41,7 +41,7 @@ class Device(BaseModel):
     INSTALLED_DEVICE = 1
     WAIT_FOR_INSTALLATION = 0
     id = IntegerField(unique=True, index=True, primary_key=True)
-    created_at = DateTimeField(index=True, default=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    created_at = DateTimeField(index=True, default=datetime.datetime.now)
     serial_number = TextField(unique=True, index=True)
     installation_address = TextField(default="")
     installation_status = IntegerField(default=WAIT_FOR_INSTALLATION)
@@ -49,7 +49,7 @@ class Device(BaseModel):
     def to_dict(self):
         device = dict()
         device['id'] = self.id
-        device['created_at'] = self.created_at
+        device['created_at'] = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
         device['serial_number'] = self.serial_number
         device['installation_address'] = self.installation_address
         device['installation_status'] = self.installation_status
