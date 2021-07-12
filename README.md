@@ -1,7 +1,7 @@
 # A Simple RestAPI
 
 ![test status](https://github.com/jomorais/simple-rest-api/actions/workflows/simple-rest-api-app.yml/badge.svg)
-![test coverage](https://coveralls.io/github/jomorais/simple-rest-api?branch=main)
+[![Coverage Status](https://coveralls.io/repos/github/jomorais/simple-rest-api/badge.svg?branch=main)](https://coveralls.io/github/jomorais/simple-rest-api?branch=main)
 
 For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubusercontent.com/jomorais/simple-rest-api/7963b13a9aa7939ca38d4ba7ea4d44dd5f1b1e84/test/Insomnia-test.json)
 
