@@ -4,13 +4,13 @@
 - testar parâmetro json do "request.json"
 
 ## CADASTRANDO NOVOS DEVICES:
-- Enviar uma requisição POST para a URL: http://vtinova.sgrede.com:8989/register_device passando como parâmetro o json com o serial_number da unidade: 
+- Enviar uma requisição POST para a URL: http://localhost:8989/register_device passando como parâmetro o json com o serial_number da unidade: 
     ```json
     {"serial_number": "123456789"}
     ```
 - comando curl:
     ```bash
-    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://vtinova.sgrede.com:8989/register_device
+    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
     ```
   
     ### RESPOSTA ESPERADA QUANDO:
@@ -38,7 +38,7 @@
         ```
   
 ## CONSULTA DE DEVICES:
-- Enviar uma requisição GET para a URL: http://vtinova.sgrede.com:8989/query_device passando como parâmetro o json com o serial_number da unidade: 
+- Enviar uma requisição GET para a URL: http://localhost:8989/query_device passando como parâmetro o json com o serial_number da unidade: 
     
     ```json
   {"serial_number": "123456789"}
@@ -46,7 +46,7 @@
   
 - comando curl:
     ```bash
-    curl --header "Content-Type: application/json" --request GET --data '{"serial_number": "123456789"}' http://vtinova.sgrede.com:8989/query_device
+    curl --header "Content-Type: application/json" --request GET --data '{"serial_number": "123456789"}' http://localhost:8989/query_device
     ```
   
     ### RESPOSTA ESPERADA QUANDO:
@@ -74,7 +74,7 @@
     ```
 
 ## INSTALANDO DEVICE CADASTRADO:
-- Enviar uma requisição POST para a URL: http://vtinova.sgrede.com:8989/install_device passando como parâmetro o json com o serial_number e o endereço de instalação da unidade: 
+- Enviar uma requisição POST para a URL: http://localhost:8989/install_device passando como parâmetro o json com o serial_number e o endereço de instalação da unidade: 
     
     ```json
     {
@@ -86,7 +86,7 @@
 - comando curl:
   
     ```bash
-    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789", "installation_address": "Rua D16, N55 Japiim Manaus/AM"}' http://vtinova.sgrede.com:8989/install_device
+    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789", "installation_address": "Rua D16, N55 Japiim Manaus/AM"}' http://localhost:8989/install_device
     ```
   
     ### RESPOSTA ESPERADA QUANDO:
@@ -123,14 +123,14 @@
   
   
 ## DELETAR UM DEVICE:
-- Enviar uma requisição DELETE para a URL: http://vtinova.sgrede.com:8989/delete_device passando como parâmetro o json com o serial_number da unidade: 
+- Enviar uma requisição DELETE para a URL: http://localhost:8989/delete_device passando como parâmetro o json com o serial_number da unidade: 
   ```json
   {"serial_number": "123456789"}
   ```
   
 - comando curl:
     ```bash
-    curl --header "Content-Type: application/json" --request DELETE --data '{"serial_number": "123456789"}' http://vtinova.sgrede.com:8989/delete_device
+    curl --header "Content-Type: application/json" --request DELETE --data '{"serial_number": "123456789"}' http://localhost:8989/delete_device
     ```
   
     ### RESPOSTA ESPERADA QUANDO:

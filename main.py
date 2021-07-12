@@ -33,5 +33,5 @@ def install_device():
     return api.install_device(request.json)
 
 
-app.run(host='localhost', port=8080)
+app.run(host='localhost', port=8989)
 
