@@ -136,7 +136,7 @@ For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubuser
   
 ## UNREGISTER A DEVICE:
 #### THE REQUEST
-- send a DELETE request to http://localhost:8989/delete_device with a json payload like this:
+- send a DELETE request to http://localhost:8989/unregister_device with a json payload like this:
 ```json
 {
     "serial_number": "123456789"
