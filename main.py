@@ -18,9 +18,9 @@ def register_device():
     return api.register_device(request.json)
 
 
-@app.route('/delete_device', methods=["DELETE"])
-def delete_device():
-    return api.delete_device(request.json)
+@app.route('/unregister_device', methods=["DELETE"])
+def unregister_device():
+    return api.unregister_device(request.json)
 
 
 @app.route('/query_device', methods=["GET"])

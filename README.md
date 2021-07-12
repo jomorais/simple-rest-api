@@ -1,159 +1,174 @@
 # RestAPI - Unidade Remota de Balanço Energético
 
-## todo:
-- testar parâmetro json do "request.json"
+## For testing with Insomnia, load test/Insomnia-test.json
 
-## CADASTRANDO NOVOS DEVICES:
-- Enviar uma requisição POST para a URL: http://localhost:8989/register_device passando como parâmetro o json com o serial_number da unidade: 
-    ```json
-    {"serial_number": "123456789"}
-    ```
-- comando curl:
-    ```bash
-    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
-    ```
+## REGISTERING NEW DEVICES:
+#### THE REQUEST
+- send a POST request to http://localhost:8989/register_device with a json payload like this:
+
+```json
+{
+    "serial_number": "123456789"
+}
+```
+
+- curl command:
+
+```bash
+  curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
+```
   
-    ### RESPOSTA ESPERADA QUANDO:
-    - CADASTRO FOR EFETUADO COM SUCESSO:
-        ```json
-        {
-          "data": {
-            "created_at": "2021-07-11 13:58:20",
-            "id": 1,
-            "installation_address": "",
-            "installation_status": 0,
-            "serial_number": "123456789"
-          },
-          "status": "OK"
-        }
-      ```
-      
-    - JÁ HOUVER UM DEVICE CADASTRADO COM ESSE MESMO SERIAL:
-      
-        ```json
-        {
-          "data": "device already registered with this serial",
-          "status": "FAIL"
-        }
-        ```
-  
-## CONSULTA DE DEVICES:
-- Enviar uma requisição GET para a URL: http://localhost:8989/query_device passando como parâmetro o json com o serial_number da unidade: 
-    
-    ```json
-  {"serial_number": "123456789"}
-    ```
-  
-- comando curl:
-    ```bash
-    curl --header "Content-Type: application/json" --request GET --data '{"serial_number": "123456789"}' http://localhost:8989/query_device
-    ```
-  
-    ### RESPOSTA ESPERADA QUANDO:
-  - EXISTIR UM DEVICE CADASTRADO COM O SERIAL INFORMADO:
-    ```json
-    {
-      "data": {
+#### THE RESULT
+- when is a success registering:
+```json
+{
+    "data": {
         "created_at": "2021-07-11 13:58:20",
         "id": 1,
         "installation_address": "",
         "installation_status": 0,
         "serial_number": "123456789"
-      },
-      "status": "OK"
-    }
-    ```
+    },
+    "status": "OK"
+}
+```
+      
+- when is already a device with this serial_number:
+  
+```json
+{
+    "data": "device already registered with this serial",
+    "status": "FAIL"
+}
+```
+  
+## QUERY A DEVICE:
+#### THE REQUEST
+- send a GET request to http://localhost:8989/query_device with a json payload like this: 
     
-    - NÃO EXISTIR UM DEVICE CADASTRADO COM O SERIAL INFORMADO:
-    
-    ```json
-    {
-      "data": "device was not found",
-      "status": "FAIL"
-    }
-    ```
+```json
+{
+    "serial_number": "123456789"
+}
+```
+  
+- curl command:
 
-## INSTALANDO DEVICE CADASTRADO:
-- Enviar uma requisição POST para a URL: http://localhost:8989/install_device passando como parâmetro o json com o serial_number e o endereço de instalação da unidade: 
+```bash
+  curl --header "Content-Type: application/json" --request GET --data '{"serial_number": "123456789"}' http://localhost:8989/query_device
+```
+  
+#### THE RESULT
+- when device was query successfully:
+
+```json
+{
+    "data": {
+        "created_at": "2021-07-11 13:58:20",
+        "id": 1,
+        "installation_address": "",
+        "installation_status": 0,
+        "serial_number": "123456789"
+    },
+    "status": "OK"
+}
+```
     
-    ```json
-    {
+- when there is no device registered with the serial_number entered:
+
+```json
+{
+    "data": "device was not found",
+    "status": "FAIL"
+}
+```
+
+## INSTALL A REGISTERED DEVICE:
+#### THE REQUEST
+
+- send a POST request to http://localhost:8989/install_device with a json payload like this:
+    
+```json
+{
     "serial_number": "123456789",
     "installation_address": "Rua D16, N55 Japiim Manaus/AM"
-    }
-    ```
+}
+```
   
-- comando curl:
+- curl command:
   
-    ```bash
-    curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789", "installation_address": "Rua D16, N55 Japiim Manaus/AM"}' http://localhost:8989/install_device
-    ```
+```bash
+  curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789", "installation_address": "Rua D16, N55 Japiim Manaus/AM"}' http://localhost:8989/install_device
+```
   
-    ### RESPOSTA ESPERADA QUANDO:
-    - O DEVICE FOR INSTALADO COM SUCESSO:
-    ```json
-    {
-      "data": {
+#### THE RESULT
+- when the installation was successfully:
+```json
+{
+    "data": {
         "created_at": "Sun, 11 Jul 2021 13:58:20 GMT",
         "id": 1,
         "installation_address": "Rua D16, N55 Japiim Manaus/AM",
         "installation_status": 1,
         "serial_number": "123456789"
-      },
-      "status": "OK"
-    }
-    ```
+    },
+    "status": "OK"
+}
+```
     
-    - NÃO EXISTIR UM DEVICE CADASTRADO COM O SERIAL INFORMADO:
-    
-    ```json
-    {
-      "data": "device was not found",
-      "status": "FAIL"
-    }
-    ```
+- when there not any device registered with this serial number:
+
+```json
+{
+    "data": "device was not found",
+    "status": "FAIL"
+}
+```
   
-    - O DEVICE INFORMADO JÁ ESTAVA INSTALADO:
-  ```json
-    {
-      "data": "device is already installed",
-      "status": "FAIL"
-    }
-  ```
+- when the device already was installed:
+```json
+{
+    "data": "device is already installed",
+    "status": "FAIL"
+}
+```
   
   
-## DELETAR UM DEVICE:
-- Enviar uma requisição DELETE para a URL: http://localhost:8989/delete_device passando como parâmetro o json com o serial_number da unidade: 
-  ```json
-  {"serial_number": "123456789"}
-  ```
+## UNREGISTER A DEVICE:
+#### THE REQUEST
+- send a DELETE request to http://localhost:8989/delete_device with a json payload like this:
+```json
+{
+    "serial_number": "123456789"
+}
+```
   
-- comando curl:
-    ```bash
-    curl --header "Content-Type: application/json" --request DELETE --data '{"serial_number": "123456789"}' http://localhost:8989/delete_device
-    ```
+- curl command:
+```bash
+  curl --header "Content-Type: application/json" --request DELETE --data '{"serial_number": "123456789"}' http://localhost:8989/unregister_device
+```
   
-    ### RESPOSTA ESPERADA QUANDO:
-    - O DEVICE FOR DELETADO CON SUCESSO:
-    
-    ```json
-    {
-      "data": {
+#### THE RESULT:
+- when the device successfully unregistered:
+
+```json
+{
+    "data": {
         "created_at": "Sun, 11 Jul 2021 13:58:20 GMT",
         "id": 1,
         "installation_address": "Rua D16, N55 Japiim Manaus/AM",
         "installation_status": 1,
         "serial_number": "123456789"
-      },
-      "status": "OK"
-    }
-    ```
+    },
+    "status": "OK"
+}
+```
   
-    - NÃO EXISTIR UM DEVICE CADASTRADO COM O SERIAL INFORMADO:
-    
-    ```json
-    {
-      "data": "device was not found",
-      "status": "FAIL"
-    }
-    ```
+- when there not any device registered with this serial number:
+
+```json
+{
+    "data": "device was not found",
+    "status": "FAIL"
+}
+```

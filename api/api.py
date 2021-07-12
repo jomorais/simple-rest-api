@@ -87,7 +87,7 @@ class Api:
         result['data'] = "install_device error"
         return result
 
-    def delete_device(self, parameters: dict):
+    def unregister_device(self, parameters: dict):
         result = dict()
         if key_checker(['serial_number'], parameters) is False:
             result['status'] = 'FAIL'
@@ -95,7 +95,7 @@ class Api:
             return result
 
         # delete a device
-        status, deleted_device = self.database.delete_device(serial_number=parameters['serial_number'])
+        status, deleted_device = self.database.unregister_device(serial_number=parameters['serial_number'])
 
         if status == DELETE_DEVICE_SUCCESS:
             result['status'] = 'OK'

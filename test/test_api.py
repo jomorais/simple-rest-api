@@ -39,7 +39,7 @@ def test_register_device():
     assert result['data'] == "device already registered with this serial"
 
 
-def test_delete_device():
+def test_unregister_device():
     parameters = {'serial_number': '123456789'}
 
     def setup_0():
@@ -48,11 +48,11 @@ def test_delete_device():
 
     setup_0()
 
-    result = api.delete_device({})
+    result = api.unregister_device({})
     assert result['status'] == 'FAIL'
     assert result['data'] == "the key 'serial_number' not found on post parameter"
 
-    result = api.delete_device(parameters)
+    result = api.unregister_device(parameters)
     assert result['status'] == 'OK'
     assert result['data']['id'] == 1
     assert result['data']['serial_number'] == parameters['serial_number']
@@ -65,7 +65,7 @@ def test_delete_device():
     setup_1()
 
     # test delete_device not found
-    result = api.delete_device(parameters)
+    result = api.unregister_device(parameters)
     assert result['status'] == 'FAIL'
     assert result['data'] == "device was not found"
 

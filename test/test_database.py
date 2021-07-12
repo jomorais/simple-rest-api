@@ -123,7 +123,7 @@ def test_install_device():
     assert device is None
 
 
-def test_delete_device():
+def test_unregister_device():
     serial_number = "123456789"
 
     def setup_0():
@@ -133,7 +133,7 @@ def test_delete_device():
     setup_0()
 
     # test delete device
-    status, device = urdb.delete_device(serial_number=serial_number)
+    status, device = urdb.unregister_device(serial_number=serial_number)
     assert status == DELETE_DEVICE_SUCCESS
     assert device.id > 0
     assert device.serial_number == serial_number
@@ -144,7 +144,7 @@ def test_delete_device():
     setup_1()
 
     # test query device not found
-    status, device = urdb.delete_device(serial_number=serial_number)
+    status, device = urdb.unregister_device(serial_number=serial_number)
     assert status == DELETE_DEVICE_NOT_FOUND
     assert device is None
 

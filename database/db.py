@@ -60,7 +60,7 @@ class Db:
 
         return INSTALL_DEVICE_ERROR, None
 
-    def delete_device(self, serial_number: str):
+    def unregister_device(self, serial_number: str):
         status, device = self.query_device(serial_number=serial_number)
         if status == QUERY_DEVICE_SUCCESS:
             try:
