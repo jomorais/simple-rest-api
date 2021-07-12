@@ -106,7 +106,7 @@ For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubuser
 ```json
 {
     "data": {
-        "created_at": "Sun, 11 Jul 2021 13:58:20 GMT",
+        "created_at": "2021-07-11 13:58:20",
         "id": 1,
         "installation_address": "Rua D16, N55 Japiim Manaus/AM",
         "installation_status": 1,
@@ -154,7 +154,7 @@ For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubuser
 ```json
 {
     "data": {
-        "created_at": "Sun, 11 Jul 2021 13:58:20 GMT",
+        "created_at": "2021-07-11 13:58:20",
         "id": 1,
         "installation_address": "Rua D16, N55 Japiim Manaus/AM",
         "installation_status": 1,
