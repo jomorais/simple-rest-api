@@ -5,6 +5,20 @@
 
 For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubusercontent.com/jomorais/simple-rest-api/7963b13a9aa7939ca38d4ba7ea4d44dd5f1b1e84/test/Insomnia-test.json)
 
+## RUN THIS API
+#### CLONE THIS REPOSITORY
+
+```bash
+git clone https://github.com/jomorais/simple-rest-api.git
+```
+
+#### INSTALL REQUIREMENTS, TEST AND RUN
+```bash
+cd simple-rest-api
+chmod +x build_and_run.sh
+./build_and_run.sh
+```
+
 ## REGISTERING NEW DEVICES:
 #### THE REQUEST
 - send a POST request to http://localhost:8989/register_device with a json payload like this:
