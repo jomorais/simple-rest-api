@@ -1,3 +1,5 @@
 flask
 peewee
 pytest
+coveralls
+coverage
