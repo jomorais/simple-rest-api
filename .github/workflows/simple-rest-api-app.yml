@@ -33,6 +33,7 @@ jobs:
     - name: Coverage Calc (Coveralls.io)
       run: |
         coverage run --source=. -m pytest test/
-        coveralls
+        coveralls --service=github
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
