@@ -7,8 +7,15 @@ from database.model import *
 
 class Db:
     def __init__(self):
+        self.init()
+
+    @staticmethod
+    def init():
         if Device.table_exists() is False:
             Device.create_table()
+            return True
+        else:
+            return False
 
     @staticmethod
     def register_device(serial_number: str):
@@ -30,7 +37,7 @@ class Db:
             return QUERY_DEVICE_NOT_FOUND, None
         except DatabaseError as ex:
             print('query_device::DatabaseError: %s' % ex)
-            return REGISTER_DEVICE_ERROR, None
+            return QUERY_DEVICE_ERROR, None
 
     @staticmethod
     def update_device_installation(device: Device, installation_address):
@@ -58,19 +65,27 @@ class Db:
         if status == QUERY_DEVICE_SUCCESS:
             return self.update_device_installation(device=device, installation_address=installation_address)
 
-        return INSTALL_DEVICE_ERROR, None
+    @staticmethod
+    def delete_device(device: Device):
+        try:
+            device.delete().execute()
+            return DELETE_DEVICE_SUCCESS, device
+        except DatabaseError as ex:
+            print(ex)
+            return DELETE_DEVICE_ERROR, None
 
     def unregister_device(self, serial_number: str):
+
         status, device = self.query_device(serial_number=serial_number)
-        if status == QUERY_DEVICE_SUCCESS:
-            try:
-                device.delete().execute()
-            except DatabaseError as ex:
-                return DELETE_DEVICE_ERROR, None
-            return DELETE_DEVICE_SUCCESS, device
-        elif status == QUERY_DEVICE_NOT_FOUND:
+
+        if status == QUERY_DEVICE_ERROR:
+            return DELETE_DEVICE_ERROR, None
+
+        if status == QUERY_DEVICE_NOT_FOUND:
             return DELETE_DEVICE_NOT_FOUND, None
-        return DELETE_DEVICE_ERROR, None
+
+        if status == QUERY_DEVICE_SUCCESS:
+            return self.delete_device(device)
 
 
 

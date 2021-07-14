@@ -1,5 +1,6 @@
 flask
 peewee
 pytest
+pytest-mock
 coveralls
 coverage
