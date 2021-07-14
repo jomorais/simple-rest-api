@@ -1,4 +1,4 @@
-# A Simple RestAPI
+# :desktop_computer: A Simple RestAPI
 
 ![test status](https://github.com/jomorais/simple-rest-api/actions/workflows/simple-rest-api-app.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/jomorais/simple-rest-api/badge.svg)](https://coveralls.io/github/jomorais/simple-rest-api?branch=main) 
