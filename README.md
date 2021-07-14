@@ -4,7 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/jomorais/simple-rest-api/badge.svg)](https://coveralls.io/github/jomorais/simple-rest-api?branch=main) 
 
 
-For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubusercontent.com/jomorais/simple-rest-api/7963b13a9aa7939ca38d4ba7ea4d44dd5f1b1e84/test/Insomnia-test.json)
+For testing with Insomnia, load <a id="raw-url" href="https://raw.githubusercontent.com/jomorais/simple-rest-api/main/test/Insomnia-test.json">test/Insomnia-test.json</a>
+
 <br>
 <br>
 
