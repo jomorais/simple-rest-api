@@ -201,6 +201,16 @@ def test_install_device_already_installed():
     assert device is None
 
 
+def test_install_device_error():
+    serial_number = "123456789"
+    installation_address = "Rua D16 N55, Japiim"
+
+    with patch('database.db.Db.query_device', return_value=(QUERY_DEVICE_ERROR, None)):
+        status, device = urdb.install_device(serial_number=serial_number, installation_address=installation_address)
+        assert status == INSTALL_DEVICE_ERROR
+        assert device is None
+
+
 def test_delete_device_success():
     serial_number = "123456789"
 

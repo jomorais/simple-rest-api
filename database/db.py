@@ -59,6 +59,9 @@ class Db:
 
         status, device = self.query_device(serial_number=serial_number)
 
+        if status == QUERY_DEVICE_ERROR:
+            return INSTALL_DEVICE_ERROR, None
+
         if status == QUERY_DEVICE_NOT_FOUND:
             return INSTALL_DEVICE_NOT_FOUND, None
 
