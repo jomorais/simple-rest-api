@@ -5,23 +5,28 @@
 
 
 For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubusercontent.com/jomorais/simple-rest-api/7963b13a9aa7939ca38d4ba7ea4d44dd5f1b1e84/test/Insomnia-test.json)
+<br>
+<br>
 
-## RUN THIS API
-#### CLONE THIS REPOSITORY
-
+### Running this REST API
+-  Optional requirements
+```bash
+# optional: install 'curl' to make requests through terminal
+sudo apt install curl
+```
+- Install requirements and run
 ```bash
 git clone https://github.com/jomorais/simple-rest-api.git
 ```
-
-#### INSTALL REQUIREMENTS, TEST AND RUN
 ```bash
 cd simple-rest-api
 chmod +x build_and_run.sh
 ./build_and_run.sh
 ```
+<br>
 
-## REGISTERING NEW DEVICES:
-#### THE REQUEST
+### Registering new devices
+
 - send a POST request to http://localhost:8989/register_device with a json payload like this:
 
 ```json
@@ -36,7 +41,7 @@ chmod +x build_and_run.sh
   curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
 ```
   
-#### THE RESULT
+
 - when is a success registering:
 ```json
 {
@@ -59,9 +64,9 @@ chmod +x build_and_run.sh
     "status": "FAIL"
 }
 ```
-  
-## QUERY A DEVICE:
-#### THE REQUEST
+<br>
+
+### Query a device
 - send a GET request to http://localhost:8989/query_device with a json payload like this: 
     
 ```json
@@ -75,8 +80,7 @@ chmod +x build_and_run.sh
 ```bash
   curl --header "Content-Type: application/json" --request GET --data '{"serial_number": "123456789"}' http://localhost:8989/query_device
 ```
-  
-#### THE RESULT
+
 - when device was query successfully:
 
 ```json
@@ -100,9 +104,9 @@ chmod +x build_and_run.sh
     "status": "FAIL"
 }
 ```
+<br>
 
-## INSTALL A REGISTERED DEVICE:
-#### THE REQUEST
+### Install a registered device:
 
 - send a POST request to http://localhost:8989/install_device with a json payload like this:
     
@@ -118,8 +122,7 @@ chmod +x build_and_run.sh
 ```bash
   curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789", "installation_address": "Rua D16, N55 Japiim Manaus/AM"}' http://localhost:8989/install_device
 ```
-  
-#### THE RESULT
+
 - when the installation was successfully:
 ```json
 {
@@ -150,10 +153,10 @@ chmod +x build_and_run.sh
     "status": "FAIL"
 }
 ```
+<br>
   
-  
-## UNREGISTER A DEVICE:
-#### THE REQUEST
+### Unregister a device:
+
 - send a DELETE request to http://localhost:8989/unregister_device with a json payload like this:
 ```json
 {
@@ -165,8 +168,7 @@ chmod +x build_and_run.sh
 ```bash
   curl --header "Content-Type: application/json" --request DELETE --data '{"serial_number": "123456789"}' http://localhost:8989/unregister_device
 ```
-  
-#### THE RESULT:
+
 - when the device successfully unregistered:
 
 ```json
