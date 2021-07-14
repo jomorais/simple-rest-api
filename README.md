@@ -8,7 +8,7 @@ For testing with Insomnia, load [test/Insomnia-test.json](https://raw.githubuser
 <br>
 <br>
 
-### Running this REST API
+### :wrench: Running this REST API
 -  Optional requirements
 ```bash
 # optional: install 'curl' to make requests through terminal
@@ -25,9 +25,9 @@ chmod +x build_and_run.sh
 ```
 <br>
 
-### Registering new devices
+### :pushpin: Registering new devices
 
-:fast_forward: - send a POST request to http://localhost:8989/register_device with a json payload like this:
+- send a POST request to http://localhost:8989/register_device with a json payload like this:
 
 ```json
 {
@@ -41,7 +41,7 @@ chmod +x build_and_run.sh
   curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
 ```
 
-:rewind: - when is a success registering:
+- when is a success registering:
 ```json
 {
     "data": {
@@ -55,7 +55,7 @@ chmod +x build_and_run.sh
 }
 ```
       
-:rewind: - when is already a device with this serial_number:
+- when is already a device with this serial_number:
   
 ```json
 {
@@ -65,7 +65,7 @@ chmod +x build_and_run.sh
 ```
 <br>
 
-### Query a device
+### :pushpin: Query a device
 - send a GET request to http://localhost:8989/query_device with a json payload like this: 
     
 ```json
@@ -105,7 +105,7 @@ chmod +x build_and_run.sh
 ```
 <br>
 
-### Install a registered device:
+### :pushpin: Install a registered device:
 
 - send a POST request to http://localhost:8989/install_device with a json payload like this:
     
@@ -154,7 +154,7 @@ chmod +x build_and_run.sh
 ```
 <br>
   
-### Unregister a device:
+### :pushpin: Unregister a device:
 
 - send a DELETE request to http://localhost:8989/unregister_device with a json payload like this:
 ```json
