@@ -5,7 +5,7 @@
 
 
 
-For testing with [Insomnia](https://insomnia.rest/download), right-click on this link <a id="raw-url" href="https://raw.githubusercontent.com/jomorais/simple-rest-api/main/test/Insomnia-test.json">test/Insomnia-test.json</a> save as, and open with Insomnia.
+For testing with [Insomnia](https://insomnia.rest/download), "right-click" on this link [test/Insomnia-test.json](https://raw.githubusercontent.com/jomorais/simple-rest-api/main/test/Insomnia-test.json) "save link as" and Import this file with Insomnia.
 
 
 
