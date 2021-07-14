@@ -7,7 +7,6 @@
 For testing with Insomnia, load <a id="raw-url" href="https://raw.githubusercontent.com/jomorais/simple-rest-api/main/test/Insomnia-test.json">test/Insomnia-test.json</a>
 
 <br>
-<br>
 
 ### :wrench: Running this REST API
 -  Optional requirements
