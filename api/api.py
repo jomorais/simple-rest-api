@@ -27,14 +27,16 @@ class Api:
             result['status'] = 'OK'
             result['data'] = registered_device.to_dict()
             return result
-        elif status == REGISTER_DEVICE_ALREADY_REGISTERED:
+
+        if status == REGISTER_DEVICE_ALREADY_REGISTERED:
             result['status'] = 'FAIL'
             result['data'] = "device already registered with this serial"
             return result
 
-        result['status'] = 'FAIL'
-        result['data'] = "register_device error"
-        return result
+        if status == REGISTER_DEVICE_ERROR:
+            result['status'] = 'FAIL'
+            result['data'] = "register_device error"
+            return result
 
     def query_device(self, parameters: dict):
         result = dict()
@@ -50,14 +52,16 @@ class Api:
             result['status'] = 'OK'
             result['data'] = device.to_dict()
             return result
-        elif status == QUERY_DEVICE_NOT_FOUND:
+
+        if status == QUERY_DEVICE_NOT_FOUND:
             result['status'] = 'FAIL'
             result['data'] = "device was not found"
             return result
 
-        result['status'] = 'FAIL'
-        result['data'] = "query_device error"
-        return result
+        if status == QUERY_DEVICE_ERROR:
+            result['status'] = 'FAIL'
+            result['data'] = "query_device error"
+            return result
 
     def install_device(self, parameters: dict):
         result = dict()
@@ -74,18 +78,21 @@ class Api:
             result['status'] = 'OK'
             result['data'] = installed_device.to_dict()
             return result
-        elif status == INSTALL_DEVICE_NOT_FOUND:
+
+        if status == INSTALL_DEVICE_NOT_FOUND:
             result['status'] = 'FAIL'
             result['data'] = "device was not found"
             return result
-        elif status == INSTALL_DEVICE_ALREADY_INSTALLED:
+
+        if status == INSTALL_DEVICE_ALREADY_INSTALLED:
             result['status'] = 'FAIL'
             result['data'] = "device is already installed"
             return result
 
-        result['status'] = 'FAIL'
-        result['data'] = "install_device error"
-        return result
+        if status == INSTALL_DEVICE_ERROR:
+            result['status'] = 'FAIL'
+            result['data'] = "install_device error"
+            return result
 
     def unregister_device(self, parameters: dict):
         result = dict()
@@ -101,12 +108,14 @@ class Api:
             result['status'] = 'OK'
             result['data'] = deleted_device.to_dict()
             return result
-        elif status == DELETE_DEVICE_NOT_FOUND:
+
+        if status == DELETE_DEVICE_NOT_FOUND:
             result['status'] = 'FAIL'
             result['data'] = "device was not found"
             return result
 
-        result['status'] = 'FAIL'
-        result['data'] = "delete_device error"
-        return result
+        if status == DELETE_DEVICE_ERROR:
+            result['status'] = 'FAIL'
+            result['data'] = "unregister_device error"
+            return result
 

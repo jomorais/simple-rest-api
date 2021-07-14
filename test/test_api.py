@@ -1,8 +1,12 @@
 #!/usr/bin/python
 __author__ = 'joaci'
 import os
+
+import pytest
+
 from api.api import Api
 from database.model import *
+from unittest.mock import patch
 
 models = [Device]
 
@@ -14,17 +18,12 @@ def clear_database():
     db.create_tables(models)
 
 
-def test_register_device():
+def test_register_device_success():
     parameters = {'serial_number': '123456789'}
 
-    def setup_0():
+    def setup():
         clear_database()
-
-    setup_0()
-
-    result = api.register_device({})
-    assert result['status'] == 'FAIL'
-    assert result['data'] == "the key 'serial_number' not found on post parameter"
+    setup()
 
     result = api.register_device(parameters)
     assert result['status'] == 'OK'
@@ -34,23 +33,48 @@ def test_register_device():
     assert result['data']['installation_address'] == ""
     assert result['data']['installation_status'] == Device.WAIT_FOR_INSTALLATION
 
+
+def test_register_device_already_registered():
+    parameters = {'serial_number': '123456789'}
+
+    def setup():
+        clear_database()
+        api.register_device(parameters)
+    setup()
+
     result = api.register_device(parameters)
     assert result['status'] == 'FAIL'
     assert result['data'] == "device already registered with this serial"
 
 
-def test_unregister_device():
-    parameters = {'serial_number': '123456789'}
+def test_register_device_key_serial_number():
+    parameters = {}
 
-    def setup_0():
+    def setup():
         clear_database()
-        api.register_device(parameters)
+    setup()
 
-    setup_0()
-
-    result = api.unregister_device({})
+    result = api.register_device(parameters)
     assert result['status'] == 'FAIL'
     assert result['data'] == "the key 'serial_number' not found on post parameter"
+
+
+def test_register_device_error():
+    parameters = {'serial_number': '123456789'}
+
+    with patch('database.db.Db.register_device', return_value=(REGISTER_DEVICE_ERROR, None)):
+        result = api.register_device(parameters)
+        assert result['status'] == 'FAIL'
+        assert result['data'] == "register_device error"
+
+
+def test_unregister_device_success():
+    parameters = {'serial_number': '123456789'}
+
+    def setup():
+        clear_database()
+        api.register_device(parameters)
+    setup()
 
     result = api.unregister_device(parameters)
     assert result['status'] == 'OK'
@@ -60,9 +84,21 @@ def test_unregister_device():
     assert result['data']['installation_address'] == ""
     assert result['data']['installation_status'] == Device.WAIT_FOR_INSTALLATION
 
-    def setup_1():
+
+def test_unregister_device_key_serial_number():
+    parameters = {}
+
+    result = api.unregister_device(parameters)
+    assert result['status'] == 'FAIL'
+    assert result['data'] == "the key 'serial_number' not found on post parameter"
+
+
+def test_unregister_device_not_found():
+    parameters = {'serial_number': '123456789'}
+
+    def setup():
         clear_database()
-    setup_1()
+    setup()
 
     # test delete_device not found
     result = api.unregister_device(parameters)
@@ -70,18 +106,22 @@ def test_unregister_device():
     assert result['data'] == "device was not found"
 
 
-def test_query_device():
+def test_unregister_device_error():
     parameters = {'serial_number': '123456789'}
 
-    def setup_0():
+    with patch('database.db.Db.unregister_device', return_value=(DELETE_DEVICE_ERROR, None)):
+        result = api.unregister_device(parameters)
+        assert result['status'] == 'FAIL'
+        assert result['data'] == "unregister_device error"
+
+
+def test_query_device_success():
+    parameters = {'serial_number': '123456789'}
+
+    def setup():
         clear_database()
         api.register_device(parameters)
-    setup_0()
-
-    # test parameter key
-    result = api.query_device({})
-    assert result['status'] == 'FAIL'
-    assert result['data'] == "the key 'serial_number' not found on post parameter"
+    setup()
 
     # test query_device success
     result = api.query_device(parameters)
@@ -92,9 +132,21 @@ def test_query_device():
     assert result['data']['installation_address'] == ""
     assert result['data']['installation_status'] == Device.WAIT_FOR_INSTALLATION
 
-    def setup_1():
+
+def test_query_device_key_serial_number():
+    parameters = {}
+    # test parameter key
+    result = api.query_device(parameters)
+    assert result['status'] == 'FAIL'
+    assert result['data'] == "the key 'serial_number' not found on post parameter"
+
+
+def test_query_device_not_found():
+    parameters = {'serial_number': '123456789'}
+
+    def setup():
         clear_database()
-    setup_1()
+    setup()
 
     # test query_device not found
     result = api.query_device(parameters)
@@ -102,19 +154,23 @@ def test_query_device():
     assert result['data'] == "device was not found"
 
 
-def test_install_device():
+def test_query_device_error():
+    parameters = {'serial_number': '123456789'}
+
+    with patch('database.db.Db.query_device', return_value=(QUERY_DEVICE_ERROR, None)):
+        result = api.query_device(parameters)
+        assert result['status'] == 'FAIL'
+        assert result['data'] == "query_device error"
+
+
+def test_install_device_success():
     parameters = {'serial_number': '123456789', 'installation_address': 'Rua d16 N55, Japiim Manaus/AM'}
 
-    def setup_0():
+    def setup():
         clear_database()
         api.register_device(parameters)
 
-    setup_0()
-
-    # test parameter key
-    result = api.install_device({})
-    assert result['status'] == 'FAIL'
-    assert result['data'] == "any of this keys ['serial_number', 'installation_address'] was not found on post parameter"
+    setup()
 
     # test parameter key
     result = api.install_device(parameters)
@@ -124,9 +180,18 @@ def test_install_device():
     assert result['data']['installation_address'] == "Rua d16 N55, Japiim Manaus/AM"
     assert result['data']['installation_status'] == Device.INSTALLED_DEVICE
 
+
+def test_install_device_key_serial_number_or_installation_address():
+    parameters = {}
+
+    # test parameter key
     result = api.install_device(parameters)
     assert result['status'] == 'FAIL'
-    assert result['data'] == "device is already installed"
+    assert result['data'] == "any of this keys ['serial_number', 'installation_address'] was not found on post parameter"
+
+
+def test_install_device_not_found():
+    parameters = {'serial_number': '123456789', 'installation_address': 'Rua d16 N55, Japiim Manaus/AM'}
 
     def setup_1():
         clear_database()
@@ -137,3 +202,27 @@ def test_install_device():
     result = api.install_device(parameters)
     assert result['status'] == 'FAIL'
     assert result['data'] == "device was not found"
+
+
+def test_install_device_already_installed():
+    parameters = {'serial_number': '123456789', 'installation_address': 'Rua d16 N55, Japiim Manaus/AM'}
+
+    def setup():
+        clear_database()
+        api.register_device(parameters)
+        api.install_device(parameters)
+    setup()
+
+    # test parameter key
+    result = api.install_device(parameters)
+    assert result['status'] == 'FAIL'
+    assert result['data'] == "device is already installed"
+
+
+def test_install_device_error():
+    parameters = {'serial_number': '123456789', 'installation_address': 'Rua d16 N55, Japiim Manaus/AM'}
+
+    with patch('database.db.Db.install_device', return_value=(INSTALL_DEVICE_ERROR, None)):
+        result = api.install_device(parameters)
+        assert result['status'] == 'FAIL'
+        assert result['data'] == "install_device error"
