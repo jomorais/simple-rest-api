@@ -10,7 +10,7 @@ api = Api()
 
 @app.route('/')
 def home():
-    return render_template('index.html', name='urbe-respapi')
+    return render_template('index.html', name='simple-rest-api')
 
 
 @app.route('/register_device', methods=["POST"])
