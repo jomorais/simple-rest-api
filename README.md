@@ -26,7 +26,7 @@ chmod +x build_and_run.sh
 <br>
 
 ### Registering new devices
-
+:fast_forward:
 - send a POST request to http://localhost:8989/register_device with a json payload like this:
 
 ```json
@@ -41,7 +41,7 @@ chmod +x build_and_run.sh
   curl --header "Content-Type: application/json" --request POST --data '{"serial_number": "123456789"}' http://localhost:8989/register_device
 ```
   
-
+:rewind:
 - when is a success registering:
 ```json
 {
