@@ -193,10 +193,10 @@ def test_install_device_key_serial_number_or_installation_address():
 def test_install_device_not_found():
     parameters = {'serial_number': '123456789', 'installation_address': 'Rua d16 N55, Japiim Manaus/AM'}
 
-    def setup_1():
+    def setup():
         clear_database()
 
-    setup_1()
+    setup()
 
     # test install_device not found
     result = api.install_device(parameters)

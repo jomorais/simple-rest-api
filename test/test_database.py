@@ -14,10 +14,10 @@ urdb = Db()
 
 
 def test_database_init():
-    def setup_0():
+    def setup():
         db.drop_tables(models)
 
-    setup_0()
+    setup()
 
     status = urdb.init()
     assert status is True
@@ -29,12 +29,12 @@ def test_database_init():
 def test_register_device():
     serial_number = "123456789"
 
-    def setup_0():
+    def setup():
         db.drop_tables(models)
         db.create_tables(models)
         print('setup_0')
 
-    setup_0()
+    setup()
 
     # test save device
     status, device = urdb.register_device(serial_number=serial_number)
@@ -101,11 +101,11 @@ def test_update_device_installation_success():
     serial_number = "123456789"
     installation_address = "Rua D16 N55 Japiim Manaus/AM"
 
-    def setup_0():
+    def setup():
         db.drop_tables(models)
         db.create_tables(models)
         return urdb.register_device(serial_number=serial_number)
-    status, dev = setup_0()
+    status, dev = setup()
 
     # test update device installation success
     status, device = urdb.update_device_installation(device=dev, installation_address=installation_address)
@@ -216,7 +216,7 @@ def test_delete_device_success():
     assert device.serial_number == serial_number
 
 
-def test_delete_device_fail():
+def test_delete_device_error():
     serial_number = "123456789"
 
     def setup():
@@ -267,11 +267,9 @@ def test_unregister_device_error():
 
     def setup():
         db.drop_tables(models)
-        print('setup')
     setup()
 
     # test test_unregister_device_error
-    print('exec')
     status, device = urdb.unregister_device(serial_number=serial_number)
     assert status == DELETE_DEVICE_ERROR
     assert device is None
